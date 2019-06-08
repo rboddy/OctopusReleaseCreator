@@ -1,0 +1,14 @@
+{
+  "ReleaseNotes": "",
+  "ProjectId": "",
+  "ChannelId": "",
+  "SelectedPackages": [
+    {
+      "StepName": "Deploy Package",
+      "ActionName": "Deploy Package",
+      "Version": "",
+      "PackageReferenceName": ""
+    }
+  ],
+  "Version": ""
+}

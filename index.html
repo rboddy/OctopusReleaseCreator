@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Release Creator</title>
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="icon" href="content/images/octologo.png" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-light bg-secondary">
+      <a class="navbar-brand" href="/" style="color: white">
+        <img src="content/images/octologo.png" width="30" height="30" alt="" />
+        Release Creator
+      </a>
+    </nav>
+
+    <div class="container-fluid mt-3">
+      <p class="lead text-center" id="instructions">
+        <strong
+          >Select the components you would like to create releases for.</strong
+        >
+      </p>
+    </div>
+
+    <div class="content">
+      <hr />
+
+      <div id="topBar" class="topBar">
+        <div>
+          <button
+            class="btn btn-success btn-lg d-block"
+            disabled
+            onclick="showModal()"
+            id="creationBtn"
+          >
+            Create Release
+          </button>
+        </div>
+        <div>
+          <form>
+            <input
+              type="search"
+              autocomplete="off"
+              placeholder="filter"
+              oninput="filterProjects()"
+              id="filterBox"
+              class="form-control"
+            />
+          </form>
+          <div class="mt-3 float-right">
+            <p class="lead mt-3 mr-3 d-inline" id="projectCount">
+              0 Selected Projects
+            </p>
+            <button
+              class="btn btn-primary btn-lg d-inline colorOvr"
+              onclick="clearSelections()"
+            >
+              Clear Selections
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="versionModal" id="versionModal">
+        <h3>Release Info</h3>
+        <hr />
+
+        <div class="form-group">
+          <label for="versionField">Version:</label>
+          <input
+            type="text"
+            class="form-control"
+            onkeyup="enableCreate()"
+            id="versionField"
+            placeholder="ex. 10.0.0.1"
+          />
+          <label class="mt-3" for="channelField">Channel:</label>
+          <input
+            type="text"
+            class="form-control"
+            onkeyup="enableCreate()"
+            id="channelField"
+            placeholder="ex. 1-Dev"
+          />
+        </div>
+
+        <button
+          class="btn btn-primary colorOvr"
+          id="confirmBtn"
+          disabled
+          onclick="getProjectData(selectedProjects)"
+        >
+          Create
+        </button>
+        <!-- <button id="confirmBtn" disabled onclick="getChannelData()">Create</button> -->
+        <button class="btn btn-danger" id="cancelBtn" onclick="closeCreate()">
+          Cancel
+        </button>
+        <button class="btn btn-secondary" id="closeBtn" onclick="closeCreate()">
+          Close
+        </button>
+
+        <p class="mt-3" id="statusMessage"></p>
+
+        <form id="environmentForm">
+          <label for="environmentField">Environment:</label>
+          <input
+            type="text"
+            class="form-control"
+            onkeyup="enableDeployment()"
+            placeholder="ex. Development"
+            id="environmentField"
+          />
+          <button
+            class="btn btn-primary colorOvr"
+            type="button"
+            disabled
+            onclick="deployReleases()"
+            id="deployBtn"
+          >
+            Deploy
+          </button>
+        </form>
+
+        <p class="mt-3" id="deployMessage">
+          All deployments started. Reference the Octopus Deploy task queue for
+          deployment progress and success/failure conditons.
+        </p>
+      </div>
+
+      <div id="projectGrid">
+        <!--Projects will be generated here-->
+      </div>
+    </div>
+
+    <script src="octopusAPIPull.js"></script>
+    <script src="Bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
